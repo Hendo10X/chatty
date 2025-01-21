@@ -1,8 +1,17 @@
 import React from 'react';
 import './App.css'; 
 import logo from './assets/Chatty.svg'
+import { useState } from'react';
+import axios from 'axios';
+
+async function register(e) {
+  e.preventDefault();
+ const {data} = await axios.post('/register',{username, password})
+}
 
 function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <div className="bg-gray-50 h-screen flex items-center justify-center"> 
       <div className="text-center max-w-sm"> 
@@ -13,13 +22,17 @@ function App() {
           The simplest chat app <br />
           you'd ever get.
         </h1>
-        <form className="w-64 mx-auto"> 
+        <form className="w-64 mx-auto mb-3" onSubmit={register}> 
           <input 
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             type="text" 
             placeholder="@username" 
             className="w-full py-2 px-4 rounded-md border border-gray-300 mb-4 focus:outline-none focus:border-green-500 font-inter" 
           />
           <input 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password" 
             placeholder="password" 
             className="w-full py-2 px-4 rounded-md border border-gray-300 mb-6 focus:outline-none focus:border-green-500 font-inter" 
